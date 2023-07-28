@@ -6,6 +6,8 @@ const port = 3000;
 
 app.set('view engine', 'pug');
 app.set('views', './src/frontend/views')
+app.use(express.static('dist/static'));
+
 app.get('/', (_, res) => {
     res.render('index');
 });
