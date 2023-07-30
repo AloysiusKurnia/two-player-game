@@ -1,16 +1,10 @@
+import {
+    BattleshipShipConfig,
+    Orientation,
+    ShipName
+} from "../../../interface/battleship/data";
+
 type Double<T> = [T, T];
-type Orientation = 'h' | 'v';
-
-export interface ShipPositioning {
-    /** The x coordinate of the top left corner of the ship */
-    x: number;
-
-    /** The y coordinate of the top left corner of the ship */
-    y: number;
-
-    /** The orientation of the ship */
-    orientation: Orientation;
-}
 
 const shipNames = [
     'carrier',
@@ -20,8 +14,6 @@ const shipNames = [
     'destroyer'
 ] as const;
 
-type ShipName = typeof shipNames[number];
-
 const shipLengths = {
     carrier: 5,
     battleship: 4,
@@ -30,7 +22,7 @@ const shipLengths = {
     destroyer: 2,
 } as Record<ShipName, number>;
 
-export type BattleshipShipConfig = Record<ShipName, ShipPositioning>;
+
 
 const BOARD_SIZE = 10;
 
@@ -60,7 +52,7 @@ export class ShipOutOfBoundsError extends Error {
     }
 }
 
-export class BattleshipGame {
+export class BattleshipGameData {
     private field: Double<(Ship | null)[][]>;
     private hitData: Double<boolean[][]>;
     private ships: Double<Ship[]>;

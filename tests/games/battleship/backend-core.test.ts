@@ -1,5 +1,5 @@
 import {
-    BattleshipGame, BattleshipShipConfig, ShipPositioning
+    BattleshipGameData, BattleshipShipConfig, ShipPositioning
 } from "../../../src/backend/games/battleship/core";
 
 function exampleShipConfigHorizontal(): BattleshipShipConfig {
@@ -25,7 +25,7 @@ function exampleShipConfigVertical(): BattleshipShipConfig {
 
 describe("Battleship game initialization", () => {
     it("makes a new game", () => {
-        const game = new BattleshipGame([
+        const game = new BattleshipGameData([
             exampleShipConfigHorizontal(),
             exampleShipConfigVertical()
         ]);
@@ -36,7 +36,7 @@ describe("Battleship game initialization", () => {
         const badConfig = exampleShipConfigHorizontal();
         badConfig.battleship = { x: 2, y: 0, orientation: "h" };
         expect(
-            () => new BattleshipGame([badConfig, exampleShipConfigHorizontal()])
+            () => new BattleshipGameData([badConfig, exampleShipConfigHorizontal()])
         ).toThrow();
     });
 
@@ -44,7 +44,7 @@ describe("Battleship game initialization", () => {
         const badConfig = exampleShipConfigHorizontal();
         badConfig.battleship = { x: 0, y: 2, orientation: "v" };
         expect(
-            () => new BattleshipGame([badConfig, exampleShipConfigHorizontal()])
+            () => new BattleshipGameData([badConfig, exampleShipConfigHorizontal()])
         ).toThrow();
     });
 
@@ -55,16 +55,16 @@ describe("Battleship game initialization", () => {
         badConfig.cruiser = { x: 5, y: 9, orientation: "v" };
         badConfig.submarine = { x: 0, y: -1, orientation: "v" };
         expect(
-            () => new BattleshipGame([badConfig, exampleShipConfigHorizontal()])
+            () => new BattleshipGameData([badConfig, exampleShipConfigHorizontal()])
         ).toThrow();
     });
 });
 
 describe("Battleship gameplay", () => {
-    let game: BattleshipGame;
+    let game: BattleshipGameData;
     const PLAYER_INDEX = 0;
     beforeEach(() => {
-        game = new BattleshipGame([
+        game = new BattleshipGameData([
             exampleShipConfigHorizontal(),
             exampleShipConfigHorizontal()
         ]);
