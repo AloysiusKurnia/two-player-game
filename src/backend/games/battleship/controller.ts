@@ -122,6 +122,7 @@ class BattleshipGameplayController implements BattleshipControllerState {
                 x: command.x,
                 y: command.y
             });
+            this.turn = otherPlayerIndex;
         }
 
         return null;
