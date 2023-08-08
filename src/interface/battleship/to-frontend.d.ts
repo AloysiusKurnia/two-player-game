@@ -1,33 +1,30 @@
 import { GameCommand } from "../abstract-command";
 import { ShipName } from "./data";
 
-export interface BattleshipGameStart extends GameCommand<'start'> { }
-
-export interface BattleshipGameEnd extends GameCommand<'end'> {
-    /** Whether the player won. */
-    won: boolean;
+export interface BattleshipGameStart extends GameCommand<'start'> {
+    /** Whether the player is going first. */
+    first: boolean;
 }
 
-interface EnemyMove {
+export interface BattleshipEnemyMove extends
+    GameCommand<'enemyMove'> {
     /** The x coordinate of the move. */
     x: number;
     /** The y coordinate of the move. */
     y: number;
 }
 
-export interface BattleshipEnemyMoveMiss extends
-    GameCommand<'enemyMiss'>,
-    EnemyMove { }
+export interface BattleshipYourMoveMiss extends
+    GameCommand<'shotMissed'> { }
 
-export interface BattleshipEnemyMoveHit extends
-    GameCommand<'enemyHit'>,
-    EnemyMove {
+export interface BattleshipYourMoveHit extends
+    GameCommand<'shotHit'> {
 
     /** If the move sunk a ship, this is the name of the ship. */
     ship: ShipName | null;
 }
 
 export type BattleshipForwardCommand = BattleshipGameStart
-    | BattleshipGameEnd
-    | BattleshipEnemyMoveMiss
-    | BattleshipEnemyMoveHit;
+    | BattleshipEnemyMove
+    | BattleshipYourMoveMiss
+    | BattleshipYourMoveHit;

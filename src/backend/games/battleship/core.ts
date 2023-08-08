@@ -3,8 +3,7 @@ import {
     Orientation,
     ShipName
 } from "../../../interface/battleship/data";
-
-type Double<T> = [T, T];
+import { Pair } from "../../../util/types";
 
 const shipNames = [
     'carrier',
@@ -53,11 +52,11 @@ export class ShipOutOfBoundsError extends Error {
 }
 
 export class BattleshipGameData {
-    private field: Double<(Ship | null)[][]>;
-    private hitData: Double<boolean[][]>;
-    private ships: Double<Ship[]>;
+    private field: Pair<(Ship | null)[][]>;
+    private hitData: Pair<boolean[][]>;
+    private ships: Pair<Ship[]>;
     constructor(
-        shipConfigs: Double<BattleshipShipConfig>,
+        shipConfigs: Pair<BattleshipShipConfig>,
     ) {
         this.hitData = [
             createSquareArray(BOARD_SIZE, false),

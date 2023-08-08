@@ -1,61 +1,41 @@
 import {
-    BattleshipGameData, BattleshipShipConfig, ShipPositioning
+    BattleshipGameData
 } from "../../../src/backend/games/battleship/core";
-
-function exampleShipConfigHorizontal(): BattleshipShipConfig {
-    return {
-        carrier: { x: 0, y: 0, orientation: "h" },
-        battleship: { x: 0, y: 2, orientation: "h" },
-        cruiser: { x: 0, y: 4, orientation: "h" },
-        submarine: { x: 0, y: 6, orientation: "h" },
-        destroyer: { x: 0, y: 8, orientation: "h" },
-    };
-}
-
-function exampleShipConfigVertical(): BattleshipShipConfig {
-    return {
-        carrier: { x: 0, y: 0, orientation: "v" },
-        battleship: { x: 2, y: 0, orientation: "v" },
-        cruiser: { x: 4, y: 0, orientation: "v" },
-        submarine: { x: 6, y: 0, orientation: "v" },
-        destroyer: { x: 8, y: 0, orientation: "v" },
-    };
-}
-
+import { exampleShipConfig } from "./test-util";
 
 describe("Battleship game initialization", () => {
     it("makes a new game", () => {
         const game = new BattleshipGameData([
-            exampleShipConfigHorizontal(),
-            exampleShipConfigVertical()
+            exampleShipConfig('h'),
+            exampleShipConfig('v')
         ]);
         expect(game).toBeDefined();
     });
 
     it("does not allow ships to intersect horizontally", () => {
-        const badConfig = exampleShipConfigHorizontal();
+        const badConfig = exampleShipConfig();
         badConfig.battleship = { x: 2, y: 0, orientation: "h" };
         expect(
-            () => new BattleshipGameData([badConfig, exampleShipConfigHorizontal()])
+            () => new BattleshipGameData([badConfig, exampleShipConfig()])
         ).toThrow();
     });
 
     it("does not allow ships to intersect vertically", () => {
-        const badConfig = exampleShipConfigHorizontal();
+        const badConfig = exampleShipConfig();
         badConfig.battleship = { x: 0, y: 2, orientation: "v" };
         expect(
-            () => new BattleshipGameData([badConfig, exampleShipConfigHorizontal()])
+            () => new BattleshipGameData([badConfig, exampleShipConfig()])
         ).toThrow();
     });
 
     it("does not allow ships to be out of bounds", () => {
-        const badConfig = exampleShipConfigHorizontal();
+        const badConfig = exampleShipConfig();
         badConfig.battleship = { x: 9, y: 0, orientation: "h" };
         badConfig.carrier = { x: -1, y: 0, orientation: "h" };
         badConfig.cruiser = { x: 5, y: 9, orientation: "v" };
         badConfig.submarine = { x: 0, y: -1, orientation: "v" };
         expect(
-            () => new BattleshipGameData([badConfig, exampleShipConfigHorizontal()])
+            () => new BattleshipGameData([badConfig, exampleShipConfig()])
         ).toThrow();
     });
 });
@@ -65,8 +45,8 @@ describe("Battleship gameplay", () => {
     const PLAYER_INDEX = 0;
     beforeEach(() => {
         game = new BattleshipGameData([
-            exampleShipConfigHorizontal(),
-            exampleShipConfigHorizontal()
+            exampleShipConfig(),
+            exampleShipConfig()
         ]);
     });
 
