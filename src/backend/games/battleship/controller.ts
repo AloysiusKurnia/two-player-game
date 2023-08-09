@@ -1,14 +1,14 @@
-import { BattleshipBackwardCommand } from "../../../interface/battleship/to-backend";
-import { ClientInterface, GameController } from '../abstracts';
-import { Player } from "../../player/player";
-import { BattleshipForwardCommand } from "../../../interface/battleship/to-frontend";
-import { Pair } from "../../../util/types";
-import { BattleshipShipConfig } from "../../../interface/battleship/data";
-import { BattleshipGameData } from "./core";
+import { ClientInterface, GameServerController } from '../abstracts';
+import { BattleshipBackwardCommand } from '../../../interface/battleship/to-backend';
+import { BattleshipForwardCommand } from '../../../interface/battleship/to-frontend';
+import { BattleshipGameData } from './core';
+import { BattleshipShipConfig } from '../../../interface/battleship/data';
+import { Pair } from '../../../util/types';
+import { Player } from '../../player/player';
 
 export type BattleshipClient = ClientInterface<BattleshipForwardCommand>;
 
-export class BattleshipController implements GameController<BattleshipBackwardCommand> {
+export class BattleshipController implements GameServerController<BattleshipBackwardCommand> {
     private clients: Pair<BattleshipClient>;
     private state: BattleshipControllerState;
     constructor(player1: BattleshipClient, player2: BattleshipClient) {

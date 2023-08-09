@@ -1,5 +1,5 @@
-import { BattleshipClient, BattleshipController } from "../../../src/backend/games/battleship/controller";
-import { exampleShipConfig } from "./test-util";
+import { BattleshipClient, BattleshipController } from '../../../src/backend/games/battleship/controller';
+import { exampleShipConfig } from './test-util';
 
 type ClientCommand = Parameters<BattleshipClient['sendCommand']>;
 
@@ -38,7 +38,7 @@ describe('battleship controller: initialization phase', () => {
         });
     });
 
-    it("won't send a game start command if only one player 1 submits", () => {
+    it('won\'t send a game start command if only one player 1 submits', () => {
         const ships = exampleShipConfig();
         game.execute({ type: 'submitShips', ships }, p1);
 
@@ -46,7 +46,7 @@ describe('battleship controller: initialization phase', () => {
         expect(sendCommandP2).not.toHaveBeenCalled();
     });
 
-    it("won't send a game start command if only one player 2 submits", () => {
+    it('won\'t send a game start command if only one player 2 submits', () => {
         const ships = exampleShipConfig();
         game.execute({ type: 'submitShips', ships }, p2);
 
@@ -112,7 +112,7 @@ describe('battleship controller: gameplay phase', () => {
         sendCommandP2.mockClear();
     });
 
-    it("allows a player to make a move when it's their move", () => {
+    it('allows a player to make a move when it\'s their move', () => {
         game.execute({ type: 'attack', x: 1, y: 0 }, p1);
 
         expect(sendCommandP1).toHaveBeenCalledWith<ClientCommand>({
@@ -125,14 +125,14 @@ describe('battleship controller: gameplay phase', () => {
         });
     });
 
-    it("won't allow a player to make a move when it's not their move", () => {
+    it('won\'t allow a player to make a move when it\'s not their move', () => {
         game.execute({ type: 'attack', x: 0, y: 0 }, p2);
 
         expect(sendCommandP1).not.toHaveBeenCalled();
         expect(sendCommandP2).not.toHaveBeenCalled();
     });
 
-    it("allows p1 to make a move again after p2's move", () => {
+    it('allows p1 to make a move again after p2\'s move', () => {
         game.execute({ type: 'attack', x: 1, y: 0 }, p1);
         expect(sendCommandP1).toHaveBeenLastCalledWith<ClientCommand>({
             type: 'shotHit',

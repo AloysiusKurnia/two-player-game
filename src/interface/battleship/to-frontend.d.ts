@@ -1,5 +1,5 @@
-import { GameCommand } from "../abstract-command";
-import { ShipName } from "./data";
+import { GameCommand } from '../abstract-command';
+import { ShipName } from './data';
 
 export interface BattleshipGameStart extends GameCommand<'start'> {
     /** Whether the player is going first. */

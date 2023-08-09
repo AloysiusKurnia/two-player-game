@@ -1,5 +1,5 @@
-import { GameCommand } from "../abstract-command";
-import { BattleshipShipConfig } from "./data";
+import { BattleshipShipConfig } from './data';
+import { GameCommand } from '../abstract-command';
 
 export interface BattleshipSubmitShipsCommand extends
     GameCommand<'submitShips'> {

@@ -1,7 +1,7 @@
 import { GameCommand } from '../../interface/abstract-command';
 import { Player } from '../player/player';
 
-export interface GameController<CommandSet extends GameCommand<string>> {
+export interface GameServerController<CommandSet extends GameCommand<string>> {
     /** Execute a command received from a player. */
     execute<T extends CommandSet>(
         command: T,
