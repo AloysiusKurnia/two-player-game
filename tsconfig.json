@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+        "jsx": "react",
+        "jsxFactory": "h",
+        "jsxFragmentFactory": "Fragment",
         "strict": true,
         "esModuleInterop": true,
         "downlevelIteration": true,

@@ -19,7 +19,7 @@ async function build(devMode = false, clean = false) {
 
     const frontendScriptsDirectory = './src/frontend/scripts';
     const frontendScriptFiles = (await fs.readdir(frontendScriptsDirectory))
-        .filter(file => file.endsWith('.ts'))
+        .filter(file => file.endsWith('.ts') || file.endsWith('.tsx'))
         .map(file => `${frontendScriptsDirectory}/${file}`);
 
     await esbuild.build({
