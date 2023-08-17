@@ -1,5 +1,6 @@
 const esbuild = require('esbuild');
 const fs = require('fs/promises');
+const path = require('path');
 
 async function build(devMode = false, clean = false) {
     if (clean) {
@@ -13,14 +14,21 @@ async function build(devMode = false, clean = false) {
         target: 'node14.16.0',
         outfile: 'dist/index.js',
         external: ['express', 'express-ws'],
-        minify: true,
+        minify: !devMode,
         sourcemap: devMode
     });
 
-    const frontendScriptsDirectory = './src/frontend/scripts';
-    const frontendScriptFiles = (await fs.readdir(frontendScriptsDirectory))
-        .filter(file => file.endsWith('.ts') || file.endsWith('.tsx'))
-        .map(file => `${frontendScriptsDirectory}/${file}`);
+    const frontendScriptFiles = [];
+    await (async function traverse(dir) {
+        for (const path of await fs.readdir(dir)) {
+            const fullPath = dir + '/' + path;
+            if ((await fs.stat(fullPath)).isDirectory()) {
+                await traverse(fullPath);
+            } else if (path.endsWith('index.tsx')) {
+                frontendScriptFiles.push(fullPath);
+            }
+        }
+    })('./src/frontend/scripts')
 
     await esbuild.build({
         entryPoints: frontendScriptFiles,
@@ -28,8 +36,8 @@ async function build(devMode = false, clean = false) {
         platform: 'browser',
         target: 'es6',
         outdir: 'dist/static/scripts',
-        minify: true,
-        sourcemap: devMode
+        minify: !devMode,
+        sourcemap: devMode,
     });
 }
 

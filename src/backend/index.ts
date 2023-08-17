@@ -10,10 +10,11 @@ app.use(express.static('dist/static'));
 
 app.get('/', (_, res) => {
     res.render('index', {
-        scriptSrc: 'scripts/preact-test.js'
+        scriptSrc: 'scripts/battleship.index.js'
     });
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`App is listening on port ${port}!`);
+    console.log(`If you're on localhost, go to http://localhost:${port}`);
 });
