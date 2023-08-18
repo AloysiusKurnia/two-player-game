@@ -10,7 +10,9 @@ app.use(express.static('dist/static'));
 
 app.get('/', (_, res) => {
     res.render('index', {
-        scriptSrc: 'scripts/battleship.index.js'
+        scriptSrc: 'scripts/battleship.index.js',
+        styleSrc: 'styles/battleship.css',
+        title: 'Battleship'
     });
 });
 

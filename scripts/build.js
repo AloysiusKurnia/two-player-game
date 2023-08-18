@@ -1,6 +1,6 @@
 const esbuild = require('esbuild');
 const fs = require('fs/promises');
-const path = require('path');
+const sass = require('sass');
 
 async function build(devMode = false, clean = false) {
     if (clean) {
@@ -39,6 +39,16 @@ async function build(devMode = false, clean = false) {
         minify: !devMode,
         sourcemap: devMode,
     });
+
+    const styleDir = './src/frontend/styles';
+    const styleFiles = await fs.readdir(styleDir);
+    for (const file of styleFiles) {
+        console.log('Compiling ' + styleDir + '/' + file);
+        const result = sass.compile(styleDir + '/' + file, {
+            outputStyle: devMode ? 'expanded' : 'compressed'
+        });
+        await fs.writeFile('./dist/static/styles/' + file.replace('.sass', '.css'), result.css);
+    }
 }
 
 const devMode = process.argv.includes('--dev');
