@@ -8,7 +8,7 @@ async function build(devMode = false, clean = false) {
     }
 
     await esbuild.build({
-        entryPoints: ['src/backend/index.ts'],
+        entryPoints: ['src/app/index.ts'],
         bundle: true,
         platform: 'node',
         target: 'node14.16.0',
@@ -18,37 +18,31 @@ async function build(devMode = false, clean = false) {
         sourcemap: devMode
     });
 
-    const frontendScriptFiles = [];
-    await (async function traverse(dir) {
-        for (const path of await fs.readdir(dir)) {
-            const fullPath = dir + '/' + path;
-            if ((await fs.stat(fullPath)).isDirectory()) {
-                await traverse(fullPath);
-            } else if (path.endsWith('index.tsx')) {
-                frontendScriptFiles.push(fullPath);
-            }
-        }
-    })('./src/frontend/scripts')
+    await fs.mkdir('./dist/static/scripts', { recursive: true });
+    await fs.mkdir('./dist/static/styles', { recursive: true });
 
-    await esbuild.build({
-        entryPoints: frontendScriptFiles,
-        bundle: true,
-        platform: 'browser',
-        target: 'es6',
-        outdir: 'dist/static/scripts',
-        minify: !devMode,
-        sourcemap: devMode,
-    });
+    for (const gamename of await fs.readdir('./src/games')) {
+        if (gamename.startsWith('.')) continue;
 
-    const styleDir = './src/frontend/styles';
-    const styleFiles = await fs.readdir(styleDir);
-    for (const file of styleFiles) {
-        console.log('Compiling ' + styleDir + '/' + file);
-        const result = sass.compile(styleDir + '/' + file, {
+        await esbuild.build({
+            entryPoints: [`src/games/${gamename}/frontend/index.tsx`],
+            bundle: true,
+            platform: 'browser',
+            target: 'es6',
+            outfile: `dist/static/scripts/${gamename}.js`,
+            minify: !devMode,
+            sourcemap: devMode,
+        });
+        const sassResult = sass.compile(`src/games/${gamename}/frontend/style.sass`, {
             outputStyle: devMode ? 'expanded' : 'compressed'
         });
-        await fs.writeFile('./dist/static/styles/' + file.replace('.sass', '.css'), result.css);
+        await fs.writeFile(`./dist/static/styles/${gamename}.css`, sassResult.css);
     }
+
+    const commonSassResult = sass.compile('src/common.sass', {
+        outputStyle: devMode ? 'expanded' : 'compressed'
+    });
+    await fs.writeFile('./dist/static/styles/common.css', commonSassResult.css);
 }
 
 const devMode = process.argv.includes('--dev');

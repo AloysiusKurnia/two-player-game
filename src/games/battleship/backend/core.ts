@@ -2,7 +2,7 @@ import {
     BattleshipShipConfig,
     Orientation,
     ShipName
-} from '../../../interface/battleship/data';
+} from '../interface/data';
 import { Pair } from '../../../util/types';
 
 const shipNames = [

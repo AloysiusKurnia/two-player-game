@@ -1,4 +1,4 @@
-import { GameCommand } from '../abstract-command';
+import { GameCommand } from '../../.abstracts/abstract-command';
 import { ShipName } from './data';
 
 export interface BattleshipGameStart extends GameCommand<'start'> {

@@ -1,4 +1,4 @@
-import { GameCommand } from "../../../interface/abstract-command";
+import { GameCommand } from "./abstract-command";
 
 export interface GameClientController<CommandSet extends GameCommand<string>> {
     /** Execute a command received from the server. */

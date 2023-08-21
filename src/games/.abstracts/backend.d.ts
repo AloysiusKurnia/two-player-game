@@ -1,4 +1,4 @@
-import { GameCommand } from '../../interface/abstract-command';
+import { GameCommand } from './abstract-command';
 import { Player } from '../player/player';
 
 export interface GameServerController<CommandSet extends GameCommand<string>> {

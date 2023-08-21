@@ -1,4 +1,7 @@
-import { BattleshipClient, BattleshipController } from '../../../src/backend/games/battleship/controller';
+import {
+    BattleshipClient,
+    BattleshipController
+} from '../../../src/games/battleship/backend/controller';
 import { exampleShipConfig } from './test-util';
 
 type ClientCommand = Parameters<BattleshipClient['sendCommand']>;

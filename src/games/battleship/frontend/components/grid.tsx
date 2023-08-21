@@ -1,9 +1,7 @@
-import { useReducer, useState } from "preact/hooks";
-import { ShipName } from "../../../../../interface/battleship/data";
-import { PositionChecker } from "../core/positionChecker";
-import { GridButton } from "./button";
+import { useReducer, useState } from 'preact/hooks';
+import { GridButton } from './button';
+import { PositionChecker } from '../core/positionChecker';
 
-function noOp() { }
 
 type GridProps<ShipId extends number> = {
     positionChecker: PositionChecker<ShipId>;

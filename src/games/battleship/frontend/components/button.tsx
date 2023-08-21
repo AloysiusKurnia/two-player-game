@@ -7,7 +7,7 @@ export interface GridButtonProps {
     hoverGroupIsValid: boolean;
     containsShip: boolean;
     containsCurrentShip: boolean;
-};
+}
 
 export function GridButton(props: GridButtonProps) {
     const fillClass = props.containsShip

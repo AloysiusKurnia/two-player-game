@@ -1,4 +1,4 @@
-import { BattleshipShipConfig } from '../../../src/interface/battleship/data';
+import { BattleshipShipConfig } from '../../../src/games/battleship/interface/data';
 
 export function exampleShipConfig(
     orientation: 'h' | 'v' = 'h'

@@ -1,6 +1,6 @@
 import {
     BattleshipGameData
-} from '../../../src/backend/games/battleship/core';
+} from '../../../src/games/battleship/backend/core';
 import { exampleShipConfig } from './test-util';
 
 describe('Battleship game initialization', () => {
