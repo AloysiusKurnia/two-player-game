@@ -5,13 +5,16 @@ const app = expressWs(express()).app;
 const port = 3001;
 
 app.set('view engine', 'pug');
-app.set('views', './src/frontend/views')
+app.set('views', './src/frontend')
 app.use(express.static('dist/static'));
 
 app.get('/', (_, res) => {
-    res.render('index', {
-        scriptSrc: 'scripts/battleship.index.js',
-        styleSrc: 'styles/battleship.css',
+    res.render('base-view', {
+        scripts: ['scripts/battleship.index.js'],
+        styles: [
+            'styles/battleship.css',
+            'styles/common.css'
+        ],
         title: 'Battleship'
     });
 });
