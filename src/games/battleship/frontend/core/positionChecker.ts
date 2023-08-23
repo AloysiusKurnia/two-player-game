@@ -6,7 +6,7 @@ type ShipRegistryEntry<ShipId extends number> = {
 };
 
 export class PositionChecker<ShipId extends number> {
-    public readonly field: (ShipId | null)[];
+    public readonly field: Array<ShipId | null>;
     private registeredShips = new Map<ShipId, ShipRegistryEntry<ShipId>>();
 
     constructor(

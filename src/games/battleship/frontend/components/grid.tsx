@@ -9,7 +9,7 @@ type GridProps<ShipId extends number> = {
     orientation: 'h' | 'v';
 };
 
-export function Panel<ShipId extends number>(props: GridProps<ShipId>) {
+export function Grid<ShipId extends number>(props: GridProps<ShipId>) {
     const {
         positionChecker,
         activeShip,
